@@ -1,94 +1,116 @@
 #lang racket
 
-;;TDA Usuario;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Capas del TDA
+;;TDA Usuario
 
 ;;REPRESENTACIÓN
+;;lista (id nombre deuda libros estado)
+;;id: int
+;;nombre: string
+;;deuda: int
+;;prestamos: list
+;;estado: booleano, suspendido (#f), activo (#t)
 
-;;lista(id nombre deuda libros estado)
 
-;;deuda = entero
-;;libros = entero del numero de libros o ids??
-;;estado = suspendido (#f), activo (#t)
-
-;;CONSTRUCTORA
+;;CONSTRUCTORES
+;;Descripcion: esta funcion permite definir la reprensentacion de usuario con los parametros de entrada y condiciones iniciales requeridas.
 ;;Dom: id (int) X nombre (string)
-;;REc: usuario
+;;Rec: Usuario (lista con estructura (id nombre deuda prestamos estado))
+;;Tipo de recursion: no aplica
 (define (crear-usuario id nombre)
    (list id
          nombre
-         0;;deuda
-         #t;;estado
-         null));;prestamo
-
-
-;;VALIDACION
-         
-(display "===== BIBLIOTECA VIRTUAL - Script de Pruebas =====\n\n")
-
-;; Crear usuarios
-(define u1 (crear-usuario 1 "Jose"))
-(define u (crear-usuario 2 "Carlos"))
-(define u2 (crear-usuario "test" "random"))
-
-
-(display u1)
-(newline)
-(display (car u1))
-(newline)
-(display (cadr u1))
-(newline)
-(display (caddr u1))
-(newline)
-(display (cadddr u1))
-(newline)
-(display (car (cdr (cdr (cdr (cdr u1)))))) (newline)
+         0 ;;deuda inicial
+         null ;;sin prestamos
+         #t)) ;;estado inicial activo
 
 ;;PERTENENCIA
-
-;; devuelve true si la entrada es valida
+;;Descripcion: esta funcion permite validad los parametros que pertenecen a usuario, devuelve true si la entrada es valida
+;;Dom: id (int) X nombre (string)
+;;Rec: Usuario (lista con estructura (id nombre deuda prestamos estado))
+;;Tipo de recursion: no aplica
 (define (usuario? u)
   (and (list? u)
        (= (length u) 5)        ; largo de la lista
        (integer? (car u))       ; id entero
        (string? (cadr u))       ; nombre string
        (integer? (caddr u))     ; deuda entero
-       (boolean? (cadddr u))    ; estado booleano
-       (list? (list-ref u 4)))) ; prestamos lista
+       (list? (cadddr u))    ; lista prestamos
+       (boolean? (list-ref u 4)))) ; estado activo o inactivo
 
-
-(if (usuario? u1)
-    "usuario valido"
-    "no es usuario") (newline)
-
-(usuario? u1) (newline)
-(usuario? u) (newline)
-(usuario? u2) (newline)
 
 ;;SELECTORES
+;;Descripción: esta funcion entrega el id del usuario
+;;Dom: usuario consultado (list)
+;;Rec: id del usuario consutado (int)
+;;Tipo recursión: No aplica.
+(define (get-usuario-id u)(car u))
 
-(define (usuario-id u)(car u))
+;;Descripción: esta funcion entrega el nombre del usuario
+;;Dom: usuario consultado (list)
+;;Rec: nombre del usuario consutado (int)
+;;Tipo recursión: No aplica.
+(define (get-usuario-nombre u)(cadr u))
 
-(define (usuario-nombre u)(cadr u))
+;;pendiente?????????????
+;;Descripción: esta funcion entrega la deuda del usuario
+;;Dom: usuario consultado (list)
+;;Rec: deuda del usuario consutado (int)
+;;Tipo recursión: No aplica.
+(define (get-usuario-deuda u)(caddr u))
 
-(define (usuario-deuda u)(caddr u))
+;;Descripción: esta funcion entrega los libros prestados del usuario
+;;Dom: usuario consultado (list)
+;;Rec: prestamos del usuario consutado (list)
+;;Tipo recursión: No aplica.
+(define (get-usuario-prestamo u)(cadddr u))
 
-(define (usuario-estado u)(cadddr u))
+;;Descripción: esta funcion entrega el estado del usuario
+;;Dom: usuario consultado (list)
+;;Rec: estado del usuario consutado (bool)
+;;Tipo recursión: No aplica.
+(define (get-usuario-estado u)(list-ref u 4))
 
-(define (usuario-prestamo u)(car u))
+;; MODIFICADORES
+;;El id y el nombre del usuario no debe cambiar por lo que no hare modificadores de estos
 
-(usuario-nombre u) (newline)
-
-;; MODIFICADORA
-;; cambiar deuda
+;;Descripción: esta funcion permite modificar la deuda de un usuario especifico
+;;Dom: id (int) X nombre (string)
+;;Rec: Usuario (nueva lista con estructura (id nombre nueva-deuda prestamos estado))
+;;Tipo recursión: No aplica.
 (define (set-deuda u nuevo-deuda)
-  (crear-usuario (usuario-deuda u) nuevo-deuda))
+  (list (get-usuario-id u)
+        (get-usuario-nombre u)
+        nuevo-deuda
+        (get-usuario-prestamo u)
+        (get-usuario-estado u)))
+        
 
-(set-deuda u -200)
-
-;;cambiar estado
+;;Descripción: esta funcion permite modificar el estado de un usuario especifico
+;;Dom: id (int) X nombre (string)
+;;Rec: Usuario (nueva lista con estructura (id nombre deuda prestamos nuevo-estado))
+;;Tipo recursión: No aplica.
 (define (set-estado u nuevo-estado)
-  (crear-usuario (usuario-estado u) nuevo-estado))
+  (list (get-usuario-id u)
+        (get-usuario-nombre u)
+        (get-usuario-deuda u)
+        (get-usuario-prestamo u)
+        nuevo-estado))
 
-(set-estado u #f)
+;;;;;;;pendiente;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Descripción: esta funcion permite modificar los prestamos de un usuario especifico
+;;Dom: id (int) X nombre (string)
+;;Rec: Usuario (nueva lista con estructura (id nombre deuda nuevo-prestamos estado))
+;;Tipo recursión: No aplica.
+(define (set-prestamo u nuevo-prestamo)
+  (list (get-usuario-id u)
+        (get-usuario-nombre u)
+        (get-usuario-deuda u)
+        (cons nuevo-prestamo(get-usuario-prestamo u))
+        (get-usuario-estado u)))
+
+;(set-prestamo libro1)
+
+
+
+
 
