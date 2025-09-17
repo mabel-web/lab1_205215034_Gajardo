@@ -1,5 +1,7 @@
 #lang racket
 
+(provide (all-defined-out))
+
 ;;TDA Usuario
 
 ;;REPRESENTACIÓN
@@ -15,7 +17,6 @@
 ;;Descripcion: esta funcion permite definir la reprensentacion de usuario con los parametros de entrada y condiciones iniciales requeridas.
 ;;Dom: id (int) X nombre (string)
 ;;Rec: Usuario (lista con estructura (id nombre deuda prestamos estado))
-;;Tipo de recursion: no aplica
 (define (crear-usuario id nombre)
    (list id
          nombre
@@ -48,14 +49,12 @@
 ;;Descripción: esta funcion entrega el nombre del usuario
 ;;Dom: usuario consultado (list)
 ;;Rec: nombre del usuario consutado (int)
-;;Tipo recursión: No aplica.
 (define (get-usuario-nombre u)(cadr u))
 
 ;;pendiente?????????????
 ;;Descripción: esta funcion entrega la deuda del usuario
 ;;Dom: usuario consultado (list)
 ;;Rec: deuda del usuario consutado (int)
-;;Tipo recursión: No aplica.
 (define (get-usuario-deuda u)(caddr u))
 
 ;;Descripción: esta funcion entrega los libros prestados del usuario

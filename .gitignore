@@ -1,0 +1,9 @@
+# Ignorar backups de Racket
+*.bak
+
+# Ignorar directorio de compilación de DrRacket
+compiled/
+
+# Ignorar archivos temporales de Windows
+Thumbs.db
+Desktop.ini

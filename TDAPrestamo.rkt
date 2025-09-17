@@ -1,5 +1,7 @@
 #lang racket
 
+(provide (all-defined-out))
+
 ;;TDA Prestamo
 ;;REPRESENTACION
 ;;lista (id id-usuario id-libro fecha-prestamo dias-solicitados)
