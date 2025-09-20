@@ -48,63 +48,69 @@
 ;;dom: libros (Lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-libros b)(car b))
+(define (get-biblioteca-libros b)(car b))
 
 ;;Descripción: esta funcion entrega la lista de usuaruios de la biblioteca
 ;;dom: libros (Lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-usuarios b)(cadr b))
+(define (get-biblioteca-usuarios b)(cadr b))
 
 ;;Descripción: esta funcion entrega la lista de prestamos de libros de la biblioteca
 ;;dom: libros (Lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-prestamos b)(caddr b))
+(define (get-biblioteca-prestamos b)(caddr b))
 
 ;;Descripción: esta funcion entrega el numero maximo de libros a prestar
 ;;dom: libros (Lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-max-libros b)(cadddr b))
+(define (get-biblioteca-max-libros b)(cadddr b))
 
 ;;Descripción: esta funcion entrega el numero maximo de dias que puede tener un prestamo
 ;;dom: libros (Lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-dias-max-prestamo b)(list-ref b 4))
+(define (get-biblioteca-dias-max-prestamo b)(list-ref b 4))
 
 ;;Descripción: esta funcion entrega el monto por día de retraso.
 ;;dom: libros (lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-tasa-multa-diaria b)(list-ref b 5))
+(define (get-biblioteca-tasa-multa-diaria b)(list-ref b 5))
 
 ;;Descripción: esta funcion entrega el numero de la deuda máxima antes de suspensión
 ;;dom: libros (lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-limite-deuda b)(list-ref b 6))
+(define (get-biblioteca-limite-deuda b)(list-ref b 6))
 
 ;;Descripción: esta funcion entrega los días de retraso antes de suspensión
 ;;dom: libros (Lista Libro) X usuarios (Lista Usuario) X prestamos (Lista Prestamo) X max-libros-usuario (int) X dias-max-prestamo (int) X
 ;;tasa-multa-diaria (int) X limite-deuda-max (int) X dias-max-retraso (int) X fecha-inicial (string)
 ;;rec: biblioteca
-(define (get-dias-max-retraso b)(list-ref b 7))
+(define (get-biblioteca-dias-max-retraso b)(list-ref b 7))
 
 ;;Descripción: esta funcion entrega la fecha de inicio del sistema
 ;;Dom: usuario consultado (list)
 ;;Rec: estado del usuario consutado (bool)
-(define (get-fecha-inicial b)(list-ref b 8))
+(define (get-biblioteca-fecha-inicial b)(list-ref b 8))
 
 (define b1 (crear-biblioteca '() '() '() 2 3 100 1000 1 "01/01" ))
 
 
-(get-fecha-inicial b1)
-(get-libros b1)
+(get-biblioteca-fecha-inicial b1)
+(get-biblioteca-libros b1)
 
 ;;MODIFICADORES
+;;RF 8 obtener-usuario
+(define (obtener-usuario b id)
+  (if (existe-usuario? b (get-usuario-id u))
+      
+;;rf 9
+;;buscar-libro
 
-;(define (agregar-libro biblioteca libro))
+;;RF 11
+;;get fecha actual
 
-; (define (registrar-usuario))

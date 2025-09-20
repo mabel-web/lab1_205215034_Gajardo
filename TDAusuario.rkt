@@ -5,7 +5,7 @@
 ;;TDA Usuario
 
 ;;REPRESENTACIÓN
-;;lista (id nombre deuda libros estado)
+;;lista (id nombre deuda prestamos estado)
 ;;id: int
 ;;nombre: string
 ;;deuda: int
