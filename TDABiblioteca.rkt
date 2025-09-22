@@ -104,13 +104,64 @@
 (get-biblioteca-libros b1)
 
 ;;MODIFICADORES
+;;Descripcion: Busca usuario por ID. **Retorna null (lista vacía '()) si no encuentra el usuario**.
+;;Dom: biblioteca (Biblioteca) X id (int)
+;;rec: usuario o null
 ;;RF 8 obtener-usuario
-(define (obtener-usuario b id)
-  (if (existe-usuario? b (get-usuario-id u))
+(define (obtener-usuario biblioteca id)
+  (define (obtener usuarios)
+    (cond [(null? usuarios) #f] 
+          [(= (get-usuario-id (car usuarios)) id) (car usuarios)] 
+          [else (obtener (cdr usuarios))])) ; sigue buscando
+  (buscar (get-biblioteca-usuarios biblioteca)))
       
 ;;rf 9
 ;;buscar-libro
+;;Descripcion: Busca libro por "id", "titulo" o "autor". **Para "titulo"/"autor": búsqueda parcial case-insensitive (todo en minúsculas)**. **Para "id": búsqueda exacta**. **Si hay múltiples resultados, retorna el primero. Retorna '() si no encuentra**. **Debe usar funciones de orden superior**.
+;;Dom: biblioteca (Biblioteca) X criterio (string) X valor (string/int)
+;rec: libro o null
+;;tipo de recursion: recursion natural
+(define (buscar-libro biblioteca criterio valor)
+  (define libros (get-biblioteca-libros b)) 
+  (define (existe? texto parcial) ;aux que da t si el parcial esta en texto y f sino
+    (define (buscar i)
+      (cond [(> i (- (string-length texto) (string-length parcial))) #f] ;; caso base: si ya no hay espacio suficiente para comparar
+            [(string=? (substring texto i (+ i (string-length parcial))) parcial) #t];; caso de éxito: encontramos sub en la posición i
+            [else (buscar (+ i 1))]));; llamada recursiva
+    (buscar 0)) ;; iniciamos desde posición 0
 
+  (define (igual-id? l)(= (get-libro-id l) valor))
+
+  (define (igual-titulo? l)
+    (existe? (string-downcase (get-libro-titulo l))
+               (string-downcase valor)))
+
+  (define (igual-autor? l)
+    (existe? (string-downcase (get-libro-autor l))
+               (string-downcase valor)))
+
+  (cond [(equal? criterio "id")
+         (if (null? (filter igual-id? libros))'()(car (filter igual-id? libros)))]
+        [(equal? criterio "titulo")
+         (if (null? (filter igual-titulo? libros))'()(car (filter igual-titulo? libros)))]
+        [(equal? criterio "autor")(if (null? (filter igual-autor? libros))'()(car (filter igual-autor? libros)))]
+        [else '()])
+
+;;Descripción: obtiene la fecha actual del sistema desde la lista de la biblioteca
+;;Dom: biblioteca
+;;Rec: string
 ;;RF 11
 ;;get fecha actual
+(define (get-fecha b)(get-biblioteca-fecha-inicial b))
 
+;;RF12-libro-disponible
+;;Descripción: verifica si un libro está disponible. **Retorna #f si el libro no existe o está prestado**.
+;;Dom: biblioteca (Biblioteca) X id-libro (int)
+;;Rec: booleano
+;;tipo de recursion: natural
+(define (libro-disponible? b id)
+  (define (verificar libros)
+    (cond [(null? libros) #f] ;; caso base
+          [(= (get-libro-id (car libros)) id)(get-libro-disponible (car libros))] ;encuentra id
+          [else (buscar (cdr libros))]))
+  (buscar (get-biblioteca-libros b)))
