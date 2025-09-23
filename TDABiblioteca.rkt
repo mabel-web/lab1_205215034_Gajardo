@@ -122,28 +122,16 @@
 ;rec: libro o null
 ;;tipo de recursion: recursion natural
 (define (buscar-libro biblioteca criterio valor)
-  (define libros (get-biblioteca-libros b)) 
-  (define (existe? texto parcial) ;aux que da t si el parcial esta en texto y f sino
-    (define (buscar i)
-      (cond [(> i (- (string-length texto) (string-length parcial))) #f] ;; caso base: si ya no hay espacio suficiente para comparar
-            [(string=? (substring texto i (+ i (string-length parcial))) parcial) #t] ;substring
-            [else (buscar (+ i 1))]));; llamada recursiva
-    (buscar 0)) ;
+ ((lambda (libros-coincidentes) 
+  (if (null? libros-coincidentes) 
+      '()
+      (car libros-coincidentes)));devuelvo el primer resultado
+  (filter (lambda (libro);recorro la lista y co el filter busco el valor en lambda q es libro
+  (cond [(string-ci=? criterio "id")(= (get-libro-id libro) valor)];string-ci compara strings
+        [(string-ci=? criterio "titulo")(string-contains? (string-downcase (get-libro-titulo libro))(string-downcase valor))]
+        [(string-ci=? criterio "autor")(string-contains?(string-downcase (get-libro-autor libro))(string-downcase valor))]
+        [else #f]))(get-biblioteca-libros biblioteca))))
 
-  (define (igual-id? l)(= (get-libro-id l) valor))
-  (define (igual-titulo? l)
-    (existe? (string-downcase (get-libro-titulo l))
-               (string-downcase valor)))
-  (define (igual-autor? l)
-    (existe? (string-downcase (get-libro-autor l))
-               (string-downcase valor)))
-
-  (cond [(equal? criterio "id")
-         (if (null? (filter igual-id? libros))'()(car (filter igual-id? libros)))]
-        [(equal? criterio "titulo")
-         (if (null? (filter igual-titulo? libros))'()(car (filter igual-titulo? libros)))]
-        [(equal? criterio "autor")(if (null? (filter igual-autor? libros))'()(car (filter igual-autor? libros)))]
-        [else '()])
 
 ;;Descripción: obtiene la fecha actual del sistema desde la lista de la biblioteca
 ;;Dom: biblioteca
@@ -165,7 +153,7 @@
   (buscar (get-biblioteca-libros b)))
 
 
-  ;;rf20
+  ;;rf20;;;;;;;;;;;;;PENDIENTE
 (debe-suspenderse? biblioteca id-usuario fecha-actual)
 
 
