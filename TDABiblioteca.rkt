@@ -163,3 +163,27 @@
           [(= (get-libro-id (car libros)) id)(get-libro-disponible (car libros))] ;encuentra id
           [else (buscar (cdr libros))]))
   (buscar (get-biblioteca-libros b)))
+
+
+  ;;rf20
+(debe-suspenderse? biblioteca id-usuario fecha-actual)
+
+
+;;rf 21
+(define (suspender-usuario b id-usuario)
+  (define (recorrer usuarios)
+    (cond [(null? usuarios) '()] 
+          [(= (get-usuario-id (car usuarios)) id-usuario)
+           (if (usuario-suspendido? (car usuarios));fr13
+               (cons (car usuarios) (cdr usuarios)) ;;ya esta suspendido no cambio
+               (cons (set-estado (car usuarios) #f) (cdr usuarios)))] ; suspender
+          [else (cons (car usuarios) (recorrer (cdr usuarios)))])) 
+  (list (get-biblioteca-libros b)
+        (recorrer (get-biblioteca-usuarios b))
+        (get-biblioteca-prestamos b)
+        (get-biblioteca-max-libros b)
+        (get-biblioteca-dias-max b)
+        (get-biblioteca-tasa-multa b)
+        (get-biblioteca-limite-deuda b)
+        (get-biblioteca-dias-retraso b)
+        (get-biblioteca-fecha-inicial b)))

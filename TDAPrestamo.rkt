@@ -76,10 +76,29 @@
 ;;rf15;;;;;; pendiente;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (obtener-fecha-vencimiento prestamo)
 (define (avanzar dia mes dias-restantes) ;hago un wraper
-    (cond [(= dias-restantes 0)
-            (if (< dia 10) 
-            (if (< mes 10) 
-          [(= dia 30) 
+    (cond [(= dias-restantes 0)(string-append 
+           (if (< dia 10) (string-append "0" (number->string dia))(number->string dia)) "/"
+           (if (< mes 10) (string-append "0" (number->string mes)) (number->string mes)))]
+          [(= dia 30)(avanzar 1 (+ mes 1) (- dias-restantes 1))]
+          [else (avanzar (+ dia 1) mes (- dias-restantes 1))])))(avanzar (string->number (substring (get-prestamo-fecha p) 0 2))
+          (string->number (substring (get-prestamo-fecha p) 3 5)) (get-prestamo-dias p)))
+
+;;rf16 
+(define (calcular-dias-retraso fecha-vencimiento fecha-actual)
+  (define (fecha-a-dias fecha)
+    (define partes (string-split fecha "/"))
+    (+ (string-a-number (car partes))(* (string-a-number (cadr partes)) 30)))
+  (max 0 (- (fecha-a-dias fecha-actual) (fecha-a-dias fecha-vencimiento))));max evita num negativo
+
+
+
+;;;Rf17
+(define (calcular-multa prestamo fecha-actual tasa)
+  (* (calcular-dias-retraso (obtener-fecha-vencimiento prestamo) fecha-actual) tasa))
+
+
+;(calcular-multa p1 "18/04" 100) 
+
 
 
 ;;pendiente rf18
