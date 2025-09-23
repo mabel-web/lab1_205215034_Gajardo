@@ -110,6 +110,20 @@
 ;(set-prestamo libro1)
 
 
+;;RF 13 usuario-suspendido?
+;;Descripción Verifica estado de suspensión del usuario. **Un usuario está suspendido si su campo suspendido es #t**.
+;;Dom: usuario (Usuario)
+;;Rec: boolean
+
+(define (usuario-suspendido? usuario)
+??(get-usuario-estado usuario))
+
+(usuario-suspendido? u1) ; #t si suspendido, #f si activo
 
 
+;;RF 14 obtener-deuda
+;;Descripción: retorna la deuda acumulada del usuario
+;;Dom: usuario (Usuario)
+;;Rec: int
+(obtener-deuda usuario)
 

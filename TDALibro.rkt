@@ -34,6 +34,7 @@
 ;;Descripción: esta funcion entrega el id del libro
 ;;Dom: libro consultado (list)
 ;;Rec: id del libro consutado (int)
+;;RF 10 get-libro-id
 (define (get-libro-id l)(car l))
 
 ;;Descripción: esta funcion entrega el titulo del libro

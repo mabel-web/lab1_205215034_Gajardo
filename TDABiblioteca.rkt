@@ -126,16 +126,14 @@
   (define (existe? texto parcial) ;aux que da t si el parcial esta en texto y f sino
     (define (buscar i)
       (cond [(> i (- (string-length texto) (string-length parcial))) #f] ;; caso base: si ya no hay espacio suficiente para comparar
-            [(string=? (substring texto i (+ i (string-length parcial))) parcial) #t];; caso de éxito: encontramos sub en la posición i
+            [(string=? (substring texto i (+ i (string-length parcial))) parcial) #t] ;substring
             [else (buscar (+ i 1))]));; llamada recursiva
-    (buscar 0)) ;; iniciamos desde posición 0
+    (buscar 0)) ;
 
   (define (igual-id? l)(= (get-libro-id l) valor))
-
   (define (igual-titulo? l)
     (existe? (string-downcase (get-libro-titulo l))
                (string-downcase valor)))
-
   (define (igual-autor? l)
     (existe? (string-downcase (get-libro-autor l))
                (string-downcase valor)))
@@ -161,7 +159,7 @@
 ;;tipo de recursion: natural
 (define (libro-disponible? b id)
   (define (verificar libros)
-    (cond [(null? libros) #f] ;; caso base
+    (cond [(null? libros) #f] 
           [(= (get-libro-id (car libros)) id)(get-libro-disponible (car libros))] ;encuentra id
           [else (buscar (cdr libros))]))
   (buscar (get-biblioteca-libros b)))

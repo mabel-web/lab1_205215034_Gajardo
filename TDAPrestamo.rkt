@@ -73,6 +73,15 @@
         nueva-fecha-prestamo
         (get-prestamo-dias-solicitados p)))
 
+;;rf15;;;;;; pendiente;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (obtener-fecha-vencimiento prestamo)
+(define (avanzar dia mes dias-restantes) ;hago un wraper
+    (cond [(= dias-restantes 0)
+            (if (< dia 10) 
+            (if (< mes 10) 
+          [(= dia 30) 
+
+
 ;;pendiente rf18
 ;;rf19
 ;;rf22
