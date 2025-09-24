@@ -45,3 +45,31 @@
         (get-biblioteca-limite-deuda biblioteca)
         (get-biblioteca-dias-retraso biblioteca)
         (get-biblioteca-fecha-inicial biblioteca)))
+
+;;rf17 tomar-prestamo
+(define (tomar-prestamo biblioteca id-usuario id-libro dias fecha-actual)
+  (cond [(or (null? (buscar-libro biblioteca "id" id-libro))
+        (not (get-libro-disponible (buscar-libro b "id" id-libro)))) biblioteca])
+        [(or (null? (obtener-usuario biblioteca id-usuario))(usuario-suspendido? (obtener-usuario b id-usuario))) biblioteca]
+        [(>= (length (get-usuario-prestamos (obtener-usuario b id-usuario)))(get-biblioteca-max-libros b)) biblioteca]
+        [(> dias (get-biblioteca-dias-max b)) biblioteca]
+        [(>= (get-usuario-deuda (obtener-usuario biblioteca id-usuario))(get-biblioteca-limite-deuda b)) biblioteca]
+        [else ;no hay restricciones
+          (list  (map (lambda (libros);; marca como no disponible el q coincide el id
+                 (if (= (get-libro-id libros) id-libro)
+                     (set-libro-disponible libros #f) libros))
+               (get-biblioteca-libros b))
+                (map (lambda (usuarios) ; agrego el nuevo prestamo a la lista del usuario
+                 (if (= (get-usuario-id usuarios) id-usuario)
+                     (set-prestamo u (crear-prestamo id-libro id-usuario id-libro fecha-actual dias))
+                     usuarios)) (get-biblioteca-usuarios b))
+          (cons (crear-prestamo id-libro id-usuario id-libro fecha-actual dias)(get-biblioteca-prestamos b));agrega el nuevo prestamo al registro global
+          (get-biblioteca-max-libros b)
+          (get-biblioteca-dias-max b)
+          (get-biblioteca-tasa-multa b)
+          (get-biblioteca-limite-deuda b)
+          (get-biblioteca-dias-retraso b)
+          (get-biblioteca-fecha-inicial b))])) 
+
+
+;;tengo q arreglar los nombres s he estado usando abreviaciones en los tdas y despues puse mas descriptivosREVISAR

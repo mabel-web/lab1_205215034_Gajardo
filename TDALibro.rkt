@@ -42,7 +42,6 @@
 ;;Rec: titulo del libro consutado (int)
 (define (get-libro-titulo l)(cadr l))
 
-;;pendiente?????????????
 ;;Descripción: esta funcion entrega el autor del libro
 ;;Dom: libro consultado (list)
 ;;Rec: autor del libro consutado (int)
@@ -50,7 +49,3 @@
 
 ;; MODIFICADORES
 ;;El id, titulo y autor de un libro no debe cambiar por lo que no hare modificadores de estos
-
-(define l1 (crear-libro 100 "demian" "ANONIMO"))
-(get-libro-titulo l1)
-(get-libro-autor l1)

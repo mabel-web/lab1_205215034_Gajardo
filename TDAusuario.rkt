@@ -95,7 +95,6 @@
         (get-usuario-prestamo u)
         nuevo-estado))
 
-;;;;;;;pendiente;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;Descripción: esta funcion permite modificar los prestamos de un usuario especifico
 ;;Dom: id (int) X nombre (string)
 ;;Rec: Usuario (nueva lista con estructura (id nombre deuda nuevo-prestamos estado))
@@ -107,9 +106,6 @@
         (cons nuevo-prestamo(get-usuario-prestamo u))
         (get-usuario-estado u)))
 
-;(set-prestamo libro1)
-
-
 ;;RF 13 usuario-suspendido?
 ;;Descripción Verifica estado de suspensión del usuario. **Un usuario está suspendido si su campo suspendido es #t**.
 ;;Dom: usuario (Usuario)
@@ -117,13 +113,9 @@
 (define (usuario-suspendido? usuario)
   (if (get-usuario-estado usuario)#f #t)) ;f si esta activo osea no suspendido y t si esta suspendido (en#f)
   
-
-;(usuario-suspendido? u1) 
-
-
-;;RF 14 obtener-deuda????????????????????????????????????????????????????????????????????????????????????????????????????nose si es asi
+;;RF 14 obtener-deuda
 ;;Descripción: retorna la deuda acumulada del usuario
 ;;Dom: usuario (Usuario)
 ;;Rec: int
-(define obtener-deuda usuario ((get-usuario-deuda usuario)))
+(define obtener-deuda usuario (get-usuario-deuda usuario))
 

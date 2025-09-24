@@ -100,8 +100,5 @@
 ;(calcular-multa p1 "18/04" 100) 
 
 
-
-;;pendiente rf18
-;;rf19
-;;rf22
-;;rf 24
+;;rf19=========================================================================pendiente
+(define (devolver-libro))

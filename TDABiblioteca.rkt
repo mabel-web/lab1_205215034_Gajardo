@@ -152,10 +152,16 @@
           [else (buscar (cdr libros))]))
   (buscar (get-biblioteca-libros b)))
 
-
-  ;;rf20;;;;;;;;;;;;;PENDIENTE
-(debe-suspenderse? biblioteca id-usuario fecha-actual)
-
+;;rf 20
+(define (debe-suspenderse? biblioteca id-usuario fecha actual)
+  (or (> (get-usuario-deuda (obtener-usuario b id-usuario))
+      (get-biblioteca-limite-deuda b));deuda supera al limite
+   (not (null? (filter (lambda (prestamo);prestamo vencido
+                   (and (= (get-prestamo-id-usuario p) id-usuario)
+                        (> (calcular-dias-retraso (obtener-fecha-vencimiento p) fecha-actual)
+                           (get-biblioteca-dias-retraso b))))
+                  (get-biblioteca-prestamos b))))))
+        
 
 ;;rf 21
 (define (suspender-usuario b id-usuario)
@@ -175,3 +181,4 @@
         (get-biblioteca-limite-deuda b)
         (get-biblioteca-dias-retraso b)
         (get-biblioteca-fecha-inicial b)))
+
