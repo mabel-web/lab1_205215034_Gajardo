@@ -28,7 +28,6 @@
 ;;Descripcion: esta funcion permite validad los parametros que pertenecen a usuario, devuelve true si la entrada es valida
 ;;Dom: id (int) X nombre (string)
 ;;Rec: Usuario (lista con estructura (id nombre deuda prestamos estado))
-;;Tipo de recursion: no aplica
 (define (usuario? u)
   (and (list? u)
        (= (length u) 5)        ; largo de la lista
@@ -43,7 +42,6 @@
 ;;Descripción: esta funcion entrega el id del usuario
 ;;Dom: usuario consultado (list)
 ;;Rec: id del usuario consutado (int)
-;;Tipo recursión: No aplica.
 (define (get-usuario-id u)(car u))
 
 ;;Descripción: esta funcion entrega el nombre del usuario
@@ -51,7 +49,7 @@
 ;;Rec: nombre del usuario consutado (int)
 (define (get-usuario-nombre u)(cadr u))
 
-;;rf14??
+;;rf14?
 ;;Descripción: esta funcion entrega la deuda del usuario
 ;;Dom: usuario consultado (list)
 ;;Rec: deuda del usuario consutado (int)
@@ -60,13 +58,11 @@
 ;;Descripción: esta funcion entrega los libros prestados del usuario
 ;;Dom: usuario consultado (list)
 ;;Rec: prestamos del usuario consutado (list)
-;;Tipo recursión: No aplica.
 (define (get-usuario-prestamo u)(cadddr u))
 
 ;;Descripción: esta funcion entrega el estado del usuario
 ;;Dom: usuario consultado (list)
 ;;Rec: estado del usuario consutado (bool)
-;;Tipo recursión: No aplica.
 (define (get-usuario-estado u)(list-ref u 4))
 
 ;; MODIFICADORES
@@ -75,7 +71,6 @@
 ;;Descripción: esta funcion permite modificar la deuda de un usuario especifico
 ;;Dom: id (int) X nombre (string)
 ;;Rec: Usuario (nueva lista con estructura (id nombre nueva-deuda prestamos estado))
-;;Tipo recursión: No aplica.
 (define (set-deuda u nuevo-deuda)
   (list (get-usuario-id u)
         (get-usuario-nombre u)
@@ -87,7 +82,6 @@
 ;;Descripción: esta funcion permite modificar el estado de un usuario especifico
 ;;Dom: id (int) X nombre (string)
 ;;Rec: Usuario (nueva lista con estructura (id nombre deuda prestamos nuevo-estado))
-;;Tipo recursión: No aplica.
 (define (set-estado u nuevo-estado)
   (list (get-usuario-id u)
         (get-usuario-nombre u)
@@ -98,7 +92,6 @@
 ;;Descripción: esta funcion permite modificar los prestamos de un usuario especifico
 ;;Dom: id (int) X nombre (string)
 ;;Rec: Usuario (nueva lista con estructura (id nombre deuda nuevo-prestamos estado))
-;;Tipo recursión: No aplica.
 (define (set-prestamo u nuevo-prestamo)
   (list (get-usuario-id u)
         (get-usuario-nombre u)
@@ -106,16 +99,5 @@
         (cons nuevo-prestamo(get-usuario-prestamo u))
         (get-usuario-estado u)))
 
-;;RF 13 usuario-suspendido?
-;;Descripción Verifica estado de suspensión del usuario. **Un usuario está suspendido si su campo suspendido es #t**.
-;;Dom: usuario (Usuario)
-;;Rec: boolean
-(define (usuario-suspendido? usuario)
-  (if (get-usuario-estado usuario)#f #t)) ;f si esta activo osea no suspendido y t si esta suspendido (en#f)
-  
-;;RF 14 obtener-deuda
-;;Descripción: retorna la deuda acumulada del usuario
-;;Dom: usuario (Usuario)
-;;Rec: int
-(define obtener-deuda usuario (get-usuario-deuda usuario))
+
 
