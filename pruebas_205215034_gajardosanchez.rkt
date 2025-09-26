@@ -1,6 +1,6 @@
 #lang racket
 
-(require "main.rkt")
+(require "main_205215034_gajardosanchez.rkt")
 
 (display "===== BIBLIOTECA VIRTUAL - Script de Pruebas =====\n\n")
 ;; Crear usuarios
@@ -114,12 +114,12 @@
 
 
 
-;; ====== Simulo devolución =============
-(display "jose devuelve el hobbit el 04/01 ===")
-(define b7 (devolver-libro b6 1 101 "04/01"))
+;; ====== Simulo devolución ============= ;;;;;;;;;;devolver-libro no funciono
+;(display "jose devuelve el hobbit el 04/01 ===")
+;(define b7 (devolver-libro b6 1 101 "04/01"))
 
-(display "prestamos después de devolución:\n")
-(display (get-biblioteca-prestamos b6)) (newline)
+;(display "prestamos después de devolución:\n");
+;(display (get-biblioteca-prestamos b6)) (newline)
 
-(display "usuarios después de devolución (deuda actualizada):\n")
-(display (get-biblioteca-usuarios b6)) (newline)
+;(display "usuarios después de devolución (deuda actualizada):\n")
+;(display (get-biblioteca-usuarios b6)) (newline)

@@ -14,19 +14,13 @@
 
 
 ;;CONSTRUCTORES
-;;Descripcion: esta funcion permite definir la reprensentacion de usuario con los parametros de entrada y condiciones iniciales requeridas.
-;;Dom: id (int) X nombre (string)
-;;Rec: Usuario (lista con estructura (id nombre deuda prestamos estado))
-(define (crear-usuario id nombre)
-   (list id
-         nombre
-         0 ;;deuda inicial
-         null ;;sin prestamos
-         #t)) ;;estado inicial activo
+;;Dom: id nombre
+(define (usuario id nombre)
+  (list id nombre))
 
 ;;PERTENENCIA
 ;;Descripcion: esta funcion permite validad los parametros que pertenecen a usuario, devuelve true si la entrada es valida
-;;Dom: id (int) X nombre (string)
+;;Dom: ??
 ;;Rec: Usuario (lista con estructura (id nombre deuda prestamos estado))
 (define (usuario? u)
   (and (list? u)
@@ -98,6 +92,4 @@
         (get-usuario-deuda u)
         (cons nuevo-prestamo(get-usuario-prestamo u))
         (get-usuario-estado u)))
-
-
 

@@ -4,20 +4,16 @@
 
 ;;TDA Libro
 ;;REPRESENTACION
-;;lista (id titulo autor)
+;;lista
 ;;id: int
 ;;titulo: string
 ;;autor: string
+;;estado de disponibilidad: boolean #t disponible, #f no disponible
 
 ;;CONSTRUCTORES
-;;Descripcion: esta funcion permite construir la reprensentacion del tda libro con los parametros de entrada y condiciones iniciales requeridas.
-;;Dom: id (int) X titulo (string) X autor(string)
-;;Rec: libro Usuario (lista con estructura (id titulo autor))
-;;Tipo de recursion: no aplica
-(define (crear-libro id titulo autor)
-  (list id 
-        (string-downcase titulo)
-        (string-downcase autor)))
+;;Dom: id (int) X titulo (string) X autor (string) X disponibilidad (boolean)
+(define (libro id titulo autor disponibilidad)
+ (list id titulo autor disponibilidad))
 
 ;;PERTENENCIA
 ;;Descripcion: esta funcion permite validar los parametros que pertenecen a libro, devuelve true si la entrada es valida, sino false
@@ -28,7 +24,8 @@
        (= (length l) 3)        ; largo de la lista
        (integer? (car l))       ; id entero
        (string? (cadr l))       ; titulo string
-       (string? (caddr l))))     ; autor string
+       (string? (caddr l))     ; autor string
+       (boolean? (cadddr l))))    ; estado de disponibilidad
       
 ;;SELECTORES
 ;;Descripción: esta funcion entrega el id del libro

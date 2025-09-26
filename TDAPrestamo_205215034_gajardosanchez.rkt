@@ -7,10 +7,8 @@
 ;;lista (id id-usuario id-libro fecha-prestamo dias-solicitados)
 
 ;;CONSTRUCTORA
-;;Descripcion: esta funcion permite definir la reprensentacion de tda prestamo con los parametros de entrada y condiciones iniciales requeridas.
 ;;Dom: id (int) X id-usuario (int) X id-libro (int) X fecha-prestamo (string) X dias-solicitados (int)
-;;Rec: prestamo (lista con estructura (id id-usuario id-libro fecha-prestamo dias-solicitados))
-(define (crear-prestamo id id-usuario id-libro fecha-prestamo dias-solicitados)
+(define (prestamo id id-usuario id-libro fecha-prestamo dias-solicitados)
   (list id id-usuario id-libro fecha-prestamo dias-solicitados))
 
 ;;PERTENENCIA
